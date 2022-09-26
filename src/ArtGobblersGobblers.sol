@@ -108,7 +108,7 @@ contract ArtGobblersGobblers is
     /// When this happens, it is possible for a Gobbler Gobbler to gobble its way out of the Art Gobbler that gobbled it
     /// Anybody can call this, and the Gobbler Gobbler will return to its previous owner
     function gobbleOut(uint256 gobblerGobblerId, uint256 gobblerId) external {
-        if (ownerOf[gobblerGobblerId] != artGobblers) {
+        if (ownerOf(gobblerGobblerId) != artGobblers) {
             revert NotGobbled();
         }
 
@@ -128,7 +128,7 @@ contract ArtGobblersGobblers is
     }
 
     function onlyGobblerGobblerOwner(uint256 gobblerGobblerId) internal view {
-        address gobblerGobblerOwner = ownerOf[gobblerGobblerId];
+        address gobblerGobblerOwner = ownerOf(gobblerGobblerId);
         if (msg.sender != gobblerGobblerOwner) {
             revert OwnerMismatch(gobblerGobblerOwner);
         }
@@ -168,13 +168,13 @@ contract ArtGobblersGobblers is
         require(to != address(0), "INVALID_RECIPIENT");
 
         // we need checked math here because the gobbler gobbler may have already gobbled its way out
-        balanceOf[from]--;
+        _balanceOf[from]--;
 
         unchecked {
-            balanceOf[to]++;
+            _balanceOf[to]++;
         }
 
-        ownerOf[id] = to;
+        _ownerOf[id] = to;
 
         delete getApproved[id];
         delete prevOwnerOf[id];
