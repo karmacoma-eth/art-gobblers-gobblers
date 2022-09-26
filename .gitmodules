@@ -7,3 +7,6 @@
 [submodule "lib/forge-std"]
 	path = lib/forge-std
 	url = https://github.com/brockelmore/forge-std
+[submodule "lib/art-gobblers"]
+	path = lib/art-gobblers
+	url = https://github.com/artgobblers/art-gobblers
